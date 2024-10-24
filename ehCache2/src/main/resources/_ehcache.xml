@@ -1,0 +1,30 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+
+    <!-- Disk store location if off-heap is not available -->
+<!--    <diskStore path="java.io.tmpdir"/>-->
+
+    <!-- Define cache for employeeCache -->
+    <cache name="employeeCache"
+           maxEntriesLocalHeap="10000"
+           eternal="false"
+           timeToLiveSeconds="10000"
+           memoryStoreEvictionPolicy="LRU"
+           maxEntriesLocalDisk="10000"
+           overflowToDisk="false"
+           statistics="true">
+
+        <!-- Cache event listener -->
+        <cacheEventListenerFactory class="com.shadysentry.ehCache2.CustomCacheEventLogger"
+                                   properties="eventFiringMode=ASYNCHRONOUS,
+                                   eventOrderingMode=UNORDERED,
+                                   events=created,
+                                   updated,
+                                   expired,
+                                   removed,
+                                   evicted"/>
+
+        <!-- Off-heap storage -->
+<!--        <persistence strategy="none"/>-->
+    </cache>
+</ehcache>
