@@ -2,6 +2,7 @@ package com.shadysentry.ehCache2;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,16 @@ public class EmployeeService {
     static {
         db.put(1L, new Employee(1L, "Alex", "Gussin"));
         db.put(2L, new Employee(2L, "Brian", "Schultz"));
+
+        for (int i = 3; i <= 1000; i++) {
+            db.put((long) i,
+                    new Employee((long) i, "Generated_first_name_" + i, "Generated_last_name_" + i));
+        }
+    }
+
+    @CacheEvict(allEntries = true)
+    public void clearCache(){
+        log.info("cache cleared");
     }
 
     @Cacheable(cacheNames = "employeeCache", key = "#id")

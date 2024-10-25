@@ -5,7 +5,7 @@ import net.sf.ehcache.Element;
 import net.sf.ehcache.event.CacheEventListener;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 @Slf4j
 public class CustomCacheEventLogger implements CacheEventListener {
     @Override
